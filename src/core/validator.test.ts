@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { SquadValidator } from './validator';
 import { TEST_ROSTER } from '../data/exampleRoster';
 
