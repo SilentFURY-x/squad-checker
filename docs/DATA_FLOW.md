@@ -13,51 +13,52 @@ The application only communicates with the `playerRepository` interface.
 The following Mermaid diagram visualizes the flow of data from the provider to the end-user on the Dashboard.
 
 ```mermaid
-
-    graph TD
+flowchart TD
     %% Define Nodes
-    subgraph Data Sources
-        DB[(PostgreSQL DB)]
-        HC[Hardcoded File\nexampleRoster.ts]
+    subgraph Data_Sources["Data Sources"]
+        DB[("PostgreSQL Database\n(Docker / Local)")]
+        HC["Hardcoded Mock Data\n(src/data/exampleRoster.ts)"]
     end
 
-    subgraph Repository Layer
-        PR[PrismaPlayerRepository]
-        HR[HardcodedPlayerRepository]
-        Index[Repository Index\nDATA_PROVIDER Router]
+    subgraph Repository_Layer["Repository Layer"]
+        PR["PrismaPlayerRepository\n(src/repositories/prisma.repository.ts)"]
+        HR["HardcodedPlayerRepository\n(src/repositories/hardcoded.repository.ts)"]
+        Index["Repository Index Router\n(src/repositories/index.ts)"]
     end
 
-    subgraph Server Layer
-        SC[DashboardPage Server Component\npage.tsx]
+    subgraph Server_Layer["Next.js Server Layer"]
+        SC["DashboardPage Server Component\n(src/app/dashboard/page.tsx)"]
     end
 
-    subgraph Client UI Layer
-        CC[DashboardClient\nDashboardClient.tsx]
-        PC[PlayerCard / AnimatedList]
+    subgraph Client_Layer["Client Interactive UI Layer"]
+        CC["DashboardClient\n(src/app/dashboard/DashboardClient.tsx)"]
+        Val["SquadValidator (Domain Engine)\n(src/core/validator.ts)"]
+        UI_Widgets["Interactive UI Components\n(AnimatedList, BentoGrid, PlayerCard)"]
     end
 
     %% Define Connections
-    DB -->|Prisma ORM| PR
-    HC --> HR
+    DB -->|Prisma Pg Adapter| PR
+    HC -->|Direct Import| HR
     
-    PR -.->|if DATA_PROVIDER=DB| Index
-    HR -.->|if DATA_PROVIDER=HARDCODED| Index
+    PR -.->|if DATA_PROVIDER = DB| Index
+    HR -.->|if DATA_PROVIDER = HARDCODED| Index
     
     Index -->|Returns generic Player[]| SC
     
-    SC -->|Passes players as props| CC
-    CC -->|Renders UI & manages selection state| PC
+    SC -->|Passes players array as props| CC
+    CC -->|Validates selected squad in real-time| Val
+    CC -->|Renders & animates GSAP transitions| UI_Widgets
 
     %% Styling
-    classDef source fill:#1e293b,stroke:#334155,stroke-width:2px,color:#fff;
-    classDef repo fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff;
-    classDef server fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff;
-    classDef client fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#fff;
+    classDef source fill:#1e293b,stroke:#ef4444,stroke-width:2px,color:#fff;
+    classDef repo fill:#1e293b,stroke:#a855f7,stroke-width:2px,color:#fff;
+    classDef server fill:#1e293b,stroke:#10b981,stroke-width:2px,color:#fff;
+    classDef client fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#fff;
 
     class DB,HC source;
     class PR,HR,Index repo;
     class SC server;
-    class CC,PC client;
+    class CC,Val,UI_Widgets client;
 ```
 
 ## Step-by-Step Data Flow

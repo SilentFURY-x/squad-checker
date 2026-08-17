@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local logs and design documents
+docs/PROMPT_LOG.md
+docs/UI_PLAN_*.md
