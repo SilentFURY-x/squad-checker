@@ -12,15 +12,18 @@ const prisma = new PrismaClient({ adapter });
 
 export class PrismaPlayerRepository implements PlayerRepository {
   async getAllPlayers(): Promise<Player[]> {
-    const players = await prisma.player.findMany();
+    const players = await prisma.player.findMany({
+      orderBy: { PlayerID: 'asc' },
+    });
     return players.map(PrismaPlayerService.toDomain);
   }
 
   async getPlayersByIds(ids: string[]): Promise<Player[]> {
     const players = await prisma.player.findMany({
       where: {
-        PlayerID: { in: ids }
-      }
+        PlayerID: { in: ids },
+      },
+      orderBy: { PlayerID: 'asc' },
     });
     return players.map(PrismaPlayerService.toDomain);
   }
