@@ -1,0 +1,16 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Player {
+  PlayerID     String  @id
+  Student      String
+  Position     String
+  Cohort       String
+  Availability String
+  Selected     String
+}

@@ -1,4 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sports Squad Constraint Checker
+
+A Next.js application designed to validate a manually selected seven-player squad against a local roster. This project implements a clean, decoupled architecture using a generic repository pattern.
+
+## Project Structure
+
+```
+├── docs/                      # Project documentation
+│   ├── ARCHITECTURE.md        # Detailed architecture
+│   ├── IMPLEMENTATION_PLAN.md # Execution plan
+│   ├── PRD.md                 # Product Requirements Document
+│   ├── PROMPT_LOG.md          # History of prompts and interactions
+│   └── TEST_REPORT.md         # Final testing logs
+├── src/
+│   ├── app/                   # Next.js App Router (UI Layer)
+│   │   ├── login/             # Google NextAuth Login
+│   │   └── dashboard/         # Main application UI
+│   ├── components/            # Reusable UI components (shadcn, MagicUI, etc.)
+│   ├── core/                  # Business Logic Layer (Framework Agnostic)
+│   │   └── validator.ts       # Standalone constraint checker logic
+│   ├── data/                  # Static assets and hardcoded mock data
+│   ├── repositories/          # Repository Layer
+│   │   ├── interface.ts       # Repository abstractions
+│   │   └── ...                # Concrete implementations
+│   ├── services/              # Service Layer (Data Mapping)
+│   │   └── ...                # ORM-to-Domain mappers
+│   └── types/                 # Universal TypeScript Domain Models
+├── prisma/                    # Prisma schema and migrations
+└── public/                    # Public static assets
+```
 
 ## Getting Started
 
@@ -15,22 +44,3 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
