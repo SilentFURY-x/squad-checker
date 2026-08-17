@@ -13,7 +13,7 @@ The application only communicates with the `playerRepository` interface.
 The following Mermaid diagram visualizes the flow of data from the provider to the end-user on the Dashboard.
 
 ```mermaid
-flowchart TD
+    flowchart TD
     %% Define Nodes
     subgraph Data_Sources["Data Sources"]
         DB[("PostgreSQL Database\n(Docker / Local)")]
